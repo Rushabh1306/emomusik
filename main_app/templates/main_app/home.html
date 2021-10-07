@@ -1,0 +1,8 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+Music Player
+<audio controls class="fc-media" style="width: 100%;">
+    <source src="media/{{ item.audio_file }}" type="audio/mpeg">
+  </audio>
+{% endblock content %}
+
