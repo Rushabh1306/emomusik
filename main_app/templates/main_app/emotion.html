@@ -1,0 +1,11 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+
+<h3>Language Chosen : {{request.user.profile.language}}</h3>
+Emotion Detection :
+<div>
+    <img src="{% url 'main_app-video' %}" height="300" width="300" style="justify-content: center; display: flex; margin-top: 30px;">
+</div>
+
+{% endblock content %}
+

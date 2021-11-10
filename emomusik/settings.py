@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-
+from keras.models import load_model
+from keras.preprocessing import image
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -133,3 +134,10 @@ CRISPY_TIEMPLATE_PACK = 'bootstrap4'
 #Login
 LOGIN_REDIRECT_URL = 'main_app-home'
 LOGIN_URL = 'users-login'
+
+XML_FOLDER = os.path.join(BASE_DIR,'xmlfolder')
+
+MODEL_PATH = os.path.join(BASE_DIR,'xmlfolder')
+
+
+

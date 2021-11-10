@@ -1,0 +1,22 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+<h3>Language Chosen : {{request.user.profile.language}}</h3>
+Emotion Detected : {{request.user.profile.emotion}}
+<br>
+Music Player
+<br>
+<br>
+
+{% for song in songs %}
+
+{{ song.title }}
+<!-- <img src="{{ image }}" alt=""> -->
+<audio controls class="fc-media" style="width: 100%;">
+    <source src="media/{{ song.audio_file }}" type="audio/mpeg">
+  </audio>
+
+
+{% endfor %}
+
+{% endblock content %}
+

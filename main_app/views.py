@@ -1,57 +1,63 @@
+from django.http import response
 from django.http.response import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
-import cv2
-import threading
 from django.views.decorators import gzip
 from django.contrib.auth.decorators import login_required
-
+import cv2
 from main_app.models import Song
-# Create your views here.
+from django.conf import settings
+from .camera import Video
+from .utils import gen
 
 @login_required
 def home(request):
     context={}
     context['title']="Home"
 
-    songs = Song.objects.first()
-    context['item'] = songs
-    
+    # songs = Song.objects.first()
+    # context['item'] = songs
+
     return render(request,'main_app/home.html',context)
 
 
+@login_required
+def video(request):
+    return StreamingHttpResponse(gen(Video()),
+    content_type='multipart/x-mixed-replace; boundary=frame')
 
-@gzip.gzip_page
-def HomeView(request):
-    try:
-        cam = VideoCamera()
-        return StreamingHttpResponse(gen(cam), content_type = "multipart/x-mixed-replace;boundary=frame")
-    except:
-        pass
-    return HttpResponse("<h1>Hello</h1>")
 
-class VideoCamera(object):
-    def __init__(self):
-        self.video = cv2.VideoCapture(0)
-        (self.grabbed, self.frame) = self.video.read()
-        threading.Thread(target=self.update,args=()).start()
-    
-    def __del__(self):
-        self.video.release()
-        
-    def get_frame(self):
-        image = self.frame
-        _,jpeg = cv2.imencode('.jpg',image)
-        return jpeg.tobytes()
+@login_required
+def emotion(request):
+    context={}
+    context['title']="Emotion Detection"
+    if request.POST:
+        language = request.POST['language']
+        # print(language)
+        context['language'] = language
+        user = request.user.profile
+        user.language = language
+        user.save()
+    return render(request,'main_app/emotion.html',context)
 
-    def update(self):
-        while True:
-            (self.grabbed, self.frame) = self.video.read()
 
-def gen(camera):
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n'+ frame + b'\r\n\r\n')
+@login_required      
+def playlist(request):
+    context={}
+    context['title']="Playlist"
+    if request.method == 'POST' and request.FILES['emotion_img']:
+        emotion = request.POST['emotion']
+        emotion_img = request.FILES.get('emotion_img')
+        request.user.profile.save()
+        user = request.user.profile
+        user.emotion = emotion
+        user.save()
+        songs = Song.objects.filter(language = request.user.profile.language,
+                                    emotion = request.user.profile.emotion)
+        context['songs'] = songs
+
+    return render(request,'main_app/playlist.html',context)
+
+
 
 
 
