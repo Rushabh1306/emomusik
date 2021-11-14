@@ -4,12 +4,11 @@ from PIL import Image
 import os
 
 from emomusik.settings import BASE_DIR
-# Create your models here.
-
 
 class Profile (models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     image = models.ImageField(upload_to = 'profile_pics')
+    emotion_image = models.ImageField(default='profile_pics/download.jpg', upload_to = 'emotion_pics')
     emotion = models.CharField(max_length=20,blank=True,null=True)
     language = models.CharField(max_length=20,blank=True,null=True)
 

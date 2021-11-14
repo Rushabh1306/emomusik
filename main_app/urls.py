@@ -6,6 +6,6 @@ urlpatterns = [
     path('',home,name = "main_app-home"),
     path('emotion',emotion,name = "main_app-emotion"),
     path('playlist',playlist,name = "main_app-playlist"),
-    path('video',video,name = "main_app-video")
-
+    path('video',video,name = "main_app-video"),
+    # path('usersave',usersave,name = "main_app-usersave")
     ]

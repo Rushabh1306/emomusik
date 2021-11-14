@@ -1,0 +1,147 @@
+<html>
+    <title>
+
+    </title>
+    <style>
+        *
+        {
+            padding:0;
+            margin:0;
+            font-family: Poppins;
+        }
+
+        .header .title
+        {
+            position: absolute;
+            width: 802px;
+            height: 69px;
+            left: 250px;
+            top: 44px;
+
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 44px;
+            line-height: 108%;
+            /* or 69px */
+
+            text-align: center;
+
+            color: #2B2B2B;
+        }
+
+        .header .subtitle
+        {
+            position: absolute;
+            width: 587px;
+            height: 31px;
+            left: 350px;
+            top: 98px;
+
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 120%;
+            /* or 31px */
+
+            text-align: center;
+
+            color: #B7B7B7;
+        }
+
+        .back img
+        {
+            position: absolute;
+            top: 60px;
+            left:112px;
+            width: 24;
+            height:20
+        } 
+
+        .submit_button .Button
+        {
+            position: absolute;
+            width: 326px;
+            height: 48px;
+            left: 462px;
+            top: 380px;
+
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 120%;
+            /* identical to box height, or 24px */
+            color: white;
+
+
+            background: #1F28EB;
+            border-radius: 5px;
+            border: 0;
+        }
+
+        .statement
+        {
+            position: absolute;
+            width: 321px;
+            height: 24px;
+            left: 468px;
+            top: 550px;
+
+
+            font-family: Poppins;
+            
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 120%;
+            /* identical to box height, or 24px */
+
+            text-align: center;
+
+            color: #1F28EB;
+
+        }
+        a{
+            text-decoration: none;
+        }
+
+        .face-division{
+            padding-top: 100px;
+            padding-right: 30px;
+            padding-bottom: 50px;
+            padding-left: 80px;
+            display: block;
+            
+            
+        }
+
+        .face {
+            display: block;
+            margin: 200px;
+            width: 700px;
+            height: 400px;
+            
+            }
+
+
+    </style>
+    <body>
+        <div class="header">
+            <div class="title">Scan your <span>Emotion!</span></div>
+            <div class="subtitle">Hold up your expressions and get your Playlist!</div>
+        </div>
+
+        <div class="back">
+            <img src="Vector.png">
+        </div>
+
+        <div class="face-division">
+            <img src="{% url 'main_app-video' %}" class="face" height="60%" width="60%" style="justify-content: center; display: flex; margin-top: 30px;">
+            <a href="{% url 'main_app-playlist' %}">Submit</a>
+        </div>
+
+        <a class="statement" href="{% url 'main_app-playlist' %}" class="statement">Go Ahead!</a>
+    </body>
+</html>

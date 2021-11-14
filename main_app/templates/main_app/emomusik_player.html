@@ -1,0 +1,191 @@
+<html>
+<title>Music Player</title>
+<style>
+    *
+    {
+        padding: 0;
+        margin: 0;
+    }
+    .title
+    {
+        position: absolute;
+        width: 505px;
+        height: 69px;
+        left: 380px;
+        top: 44px;
+            
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 44px;
+        line-height: 108%;
+        /* or 69px */
+            
+        text-align: center;
+            
+        color: #2B2B2B;
+
+    }
+
+    .log_out
+    {
+        position: absolute;
+        width: 99px;
+        height: 39px;
+        right: 85px;
+        top: 54px;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 39px;
+        text-decoration: underline;
+        /* identical to box height */
+
+
+        color: #2B2B2B;
+    }
+
+    .box1 
+    {
+        position: absolute;
+        width: 700px;
+        height: 350px;
+        left: 112px;
+        top: 130px;
+
+        background: #FFFFFF;
+        box-shadow: 0px 6px 18px rgba(43, 43, 43, 0.10);
+        border-radius: 10px;
+    }
+
+    .box1 .box_heading
+    {
+        position: absolute;
+        width: 103px;
+        height: 42px;
+        left: 32px;
+        top: 12px;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 42px;
+        /* identical to box height */
+
+
+        color: #2B2B2B;
+
+    }
+
+    .box2
+    {
+        position: absolute;
+        width: 300px;
+        height: 350px;
+        right: 112px;
+        top: 130px;
+
+        background: #B18150;
+        border-radius: 10px;
+    }
+
+    .box2 .box2_heading
+    {
+        position: absolute;
+        width: 175px;
+        height: 42px;
+        left: 90px;
+        top: 12px;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 42px;
+        /* identical to box height */
+
+
+        color: #FFFFFF;
+    }
+
+    .box2 img{
+        height:200px; width:200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    .box3 .scan_again
+    {
+        position: absolute;
+        width: 321px;
+        height: 24px;
+        left: 408px;
+        top: 500px;
+        font-family: Poppins;
+        
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 120%;
+        /* identical to box height, or 24px */
+        text-align: center;
+        color: #2B2B2B;
+    }
+
+    .box3 .button
+    {
+        position: absolute;     
+        width: 120px;
+        height: 40px;
+        left: 720px;
+        top: 490px;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 120%;
+        /* identical to box height, or 24px */
+        color: white;
+        background: #1F28EB;
+        border-radius: 5px;
+        border: 0;
+    }
+</style>
+<body>
+    <div class="title">Looking <span style="color:#1F28EB">Happy!</span></div>
+    <div class="log_out">Log Out</div>
+
+    <div class="box1">
+        <div class="box_heading">Playlist</div>
+            {% for song in songs %}
+
+            {{ song.title }}
+                <!-- <img src="{{ image }}" alt=""> -->
+                <audio controls style="width: 100%;" autoplay>
+                    <source src="media/{{ song.audio_file }}" type="audio/mpeg">
+                </audio>
+            {% endfor %}
+    </div>
+
+    <div class="box2">
+        <div class="box2_heading">Now Playing</div>
+        
+        <img/>
+
+    </div>
+
+    <div class="box3">
+        <div class="scan_again">Want to scan your emotion again?</div>
+        <div class="scan_button">
+            <form>
+                <input type="submit" value="Scan" class="button">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

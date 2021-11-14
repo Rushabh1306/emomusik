@@ -14,10 +14,17 @@ model.load_weights(os.path.join(model_path,"fer.h5"))
 class Video(object):
     def __init__(self):
         self.video=cv2.VideoCapture(0)
+        self.predicted_emotion = None
+        self.request = None
     def __del__(self):
         self.video.release()
-    def get_frame(self):
+    def get_frame(self,request):
+        
+        
+        print(request.user.profile.emotion)
         ret,frame=self.video.read()
+        # if not ret:
+        #     print("Can't receive frame (stream end?). Exiting ...")
         faces=faceDetect.detectMultiScale(frame, 1.3, 5)
         gray_img= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  
         for x,y,w,h in faces:
@@ -44,7 +51,9 @@ class Video(object):
 
             predictions = model.predict(image_pixels)
             max_index = np.argmax(predictions[0])
-            predicted_emotion = emotions[max_index]  
-            cv2.putText(frame, predicted_emotion, (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+            self.predicted_emotion = emotions[max_index]  
+            cv2.putText(frame, self.predicted_emotion, (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
         ret,jpg=cv2.imencode('.jpg',frame)
-        return jpg.tobytes()
+        request.user.profile.emotion = self.predicted_emotion
+        request.user.save()
+        return [jpg.tobytes(),self.predicted_emotion]
