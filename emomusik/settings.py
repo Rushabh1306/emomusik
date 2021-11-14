@@ -14,15 +14,16 @@ import os
 from pathlib import Path
 from keras.models import load_model
 from keras.preprocessing import image
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
+from decouple import config
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n42s&7=vxnk9i5=ct9gnn#8%^sc!=50l26*+y_vu0!v3cvd%9)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'emomusik.urls'
@@ -123,6 +125,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 #Media Files
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -139,5 +145,4 @@ XML_FOLDER = os.path.join(BASE_DIR,'xmlfolder')
 
 MODEL_PATH = os.path.join(BASE_DIR,'xmlfolder')
 
-
-
+django_heroku.settings(locals())
